@@ -1,0 +1,7 @@
+[
+ {"title":"Getting started","category":"Basics","order":1,"tags":["setup","install"],"updated":"2026-10-14","body":"## Welcome\nThis is a **demo article**. Replace `articles.json` with your own content.\n\n1. Edit articles.json\n2. Commit\n3. Your help center redeploys\n\nSee [Writing articles](#/a/writing-articles)."},
+ {"title":"Writing articles","category":"Basics","order":2,"tags":["markdown","editor"],"updated":"2026-10-14","body":"## Markdown supported\n- Headings, **bold**, *italic*, `code`\n- Links and lists\n\n```\nfenced code blocks too\n```"},
+ {"title":"Custom domain","category":"Hosting","tags":["domain","dns","setup"],"updated":"2026-10-13","body":"## Point your domain\nAdd a CNAME record to your GitHub Pages host, then set the custom domain in repo Settings → Pages."},
+ {"title":"Resetting your password (sample)","category":"Account","tags":["password","login"],"updated":"2026-10-12","body":"Sample customer-facing article. Click **Forgot password** on the sign-in page and follow the email link."},
+ {"title":"Internal draft","category":"Account","draft":true,"body":"Hidden from the public site."}
+]

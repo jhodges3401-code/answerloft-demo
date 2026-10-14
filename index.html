@@ -1,0 +1,24 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Answerloft: self-hosted help center, a one-time-price alternative to monthly knowledge base tools</title>
+<meta name="description" content="A fast, searchable help center you host yourself. Pay once, $149. No per-editor fees.">
+<style>body{margin:0;font:16px/1.6 system-ui,sans-serif;color:#111;background:#f7f9fc}header{background:#0f766e;color:#fff;padding:28px 20px}header a{color:#fff}
+.w{max-width:900px;margin:auto;padding:0 20px}#q{width:100%;box-sizing:border-box;padding:14px;font-size:17px;border-radius:10px;border:0;margin-top:10px}
+.cta{display:inline-block;background:#fbbf24;color:#111;padding:8px 14px;border-radius:8px;font-weight:700;text-decoration:none;margin-top:10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;margin:24px 0}.card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px}
+.card h3{margin:0 0 6px}.card a,main a{color:#0f766e}article{background:#fff;border-radius:12px;padding:24px;margin:24px 0}pre{background:#f1f5f9;padding:12px;overflow:auto}
+.res{background:#fff;border-radius:10px;padding:12px;margin:8px 0}small{color:#666}footer{color:#777;font-size:13px;padding:30px 0}</style></head>
+<body><header><div class="w"><h1><a href="#/" style="text-decoration:none">Answerloft</a> <small style="color:#ccfbf1">demo help center</small></h1>
+<input id="q" placeholder="Search articles…" autocomplete="off" aria-label="Search">
+<a class="cta" href="https://jhodges6.gumroad.com/l/REPLACE_ME">Get the template: $149 one-time</a></div></header>
+<main class="w" id="app"></main>
+<div class="w"><footer>Answerloft is an independent product, not affiliated with or endorsed by any other knowledge base vendor. Articles shown are demo content.</footer></div>
+<script src="answerloft.js"></script><script>
+var A=Answerloft,arts=[],app=document.getElementById('app'),q=document.getElementById('q');
+function home(){app.innerHTML='<div class="grid">'+A.categories(arts).map(function(c){return '<div class="card"><h3>'+A.esc(c.name)+'</h3>'+c.articles.map(function(a){return '<div><a href="#/a/'+a.slug+'">'+A.esc(a.title)+'</a></div>'}).join('')+'</div>'}).join('')+'</div>';}
+function show(slug){var a=arts.filter(function(x){return x.slug===slug})[0];if(!a){app.innerHTML='<p>Article not found. <a href="#/">Back home</a></p>';return;}
+document.title=a.title+' | Help';var rel=A.related(arts,a);app.innerHTML='<p><a href="#/">Home</a> › '+A.esc(a.category)+'</p><article><h1>'+A.esc(a.title)+'</h1>'+(a.updated?'<small>Updated '+a.updated+'</small>':'')+A.markdown(a.body)+'</article>'+(rel.length?'<h3>Related</h3>'+rel.map(function(r){return '<div><a href="#/a/'+r.slug+'">'+A.esc(r.title)+'</a></div>'}).join(''):'');}
+function results(s){var r=A.search(arts,s);app.innerHTML='<h2>'+r.length+' result(s)</h2>'+r.map(function(a){return '<div class="res"><a href="#/a/'+a.slug+'"><b>'+A.esc(a.title)+'</b></a><br><small>'+A.esc(A.snippet(a,s))+'</small></div>'}).join('');}
+function route(){var h=location.hash,m=/^#\/a\/(.+)$/.exec(h);if(m)show(decodeURIComponent(m[1]));else if(q.value.trim())results(q.value);else home();}
+q.oninput=function(){if(location.hash!=='#/'&&q.value)location.hash='#/';route();};
+window.onhashchange=route;fetch('articles.json').then(function(r){return r.json()}).then(function(l){arts=A.load(l);route();});
+</script></body></html>
